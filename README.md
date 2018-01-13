@@ -8,10 +8,12 @@ plot -d 1 -f ./<Your points file name>.xlsx
 
 ###Installation Notes:
        Make sure the following libraries are installed via
-         pip3 install <library name>:
+         pip install <library name>:
+         (If pip is not found, try py -m pip install <library name>)
             numpy
             openpyxl
             scipy
+            flask
 
 ###Excel File Format:
     The expected file format is that Column A will contain all the x values
