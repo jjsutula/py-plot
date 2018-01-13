@@ -16,8 +16,9 @@ class FitLine:
     def fit_func(self, x, a, b):
         return a*x + b
 
-    def do_fit(self):
-        params = curve_fit(self.fit_func, self.x, self.y)
+    def do_fit(self, point_list):
+        # params = curve_fit(self.fit_func, self.x, self.y)
+        params = curve_fit(self.fit_func, point_list[0], point_list[1])
 
         [a, b] = params[0]
         return 'a='+str(a)+' b='+str(b)

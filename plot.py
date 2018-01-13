@@ -1,45 +1,7 @@
 import argparse
 import sys
-from openpyxl import load_workbook
-import numbers
-
-
-def parse_points(file):
-    """Parse a list of points from an Excel file (*.xlsx).
-    The expected file format is that Column A will contain all the x values
-    and column B will contain all the y values. The first row(s) may be header(s)
-    but once the first row of numbers is encountered all subsequent rows should
-    be filled with numbers.
-    """
-    wb = load_workbook(file)
-    sheet1 = wb.sheetnames[0]
-    col_a = wb[sheet1]['A']
-    col_b = wb[sheet1]['B']
-
-    col_cnt = 0
-    point_list_cnt = 0
-
-    found_a_number = False
-
-    # Iterate through all the rows and create a list of x values and
-    # a list of y values using the numeric values in Columns A and B
-    for cell in col_a:
-        # Do not start populating the lists until the first row of numbers
-        if found_a_number is False and isinstance(col_a[col_cnt].value, numbers.Number):
-            found_a_number = True
-            points_len = col_a.__len__() - col_cnt
-            points = [[0 for x in range(points_len)] for y in range(2)]
-
-        if found_a_number:
-            points[0][point_list_cnt] = col_a[col_cnt].value
-            points[1][point_list_cnt] = col_b[col_cnt].value
-            point_list_cnt = point_list_cnt + 1
-
-        col_cnt = col_cnt + 1
-
-    # Close the file and return the lists
-    wb.close()
-    return points
+from line.FitLine import FitLine
+from points.Points import Points
 
 
 def main(argv):
@@ -55,9 +17,14 @@ def main(argv):
     parser.add_argument('-g', '--gap', type=int, help='energy gap guess')
     args = parser.parse_args()
 
-    # Get a list of tuples from the input Excel file.
-    points = parse_points(args.file)
-    print(points)
+    # Get a list containing an array of x values and an array of y values.
+    points = Points()
+    point_list = points.parse_points(args.file)
+    print(point_list)
+
+    # Use the points from the file as input for the fit module
+    fit_line = FitLine()
+    print('The output point from fit_line is '+fit_line.do_fit(point_list))
 
 
 # Do this so that main() only gets called if invoked via command line, but not if invoked programmatically
