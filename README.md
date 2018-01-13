@@ -1,10 +1,10 @@
 #Plot
 ###Command Line Invocation (see plot.py):
 
-usage: plot [-h] -f FILE -d DISTANCE [-g GAP]
+usage: py plot.py [-h] -f FILE -d DISTANCE [-g GAP]
 
 Example:
-plot -d 1 -f ./<Your points file name>.xlsx
+py plot.py -d 1 -f ./<Your points file name>.xlsx
 
 ###Installation Notes:
        Make sure the following libraries are installed via
@@ -20,3 +20,11 @@ plot -d 1 -f ./<Your points file name>.xlsx
     and column B will contain all the y values. The first row(s) may be header(s)
     but once the first row of numbers is encountered all subsequent rows should
     be filled with numbers.
+
+###Alternatively Run As Web Program:
+usage: py pymath.py
+
+Then, open a web browser and go to:
+ http://127.0.0.1:5000/
+
+To quit the program, type CTRL-C
